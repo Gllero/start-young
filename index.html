@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <style>
+    :root {
+      --bg: #ece8e1;
+      --panel: #f7f4ef;
+      --panel-2: #efebe4;
+      --panel-3: #e4dfd6;
+      --text: #121212;
+      --muted: #5f5a52;
+      --accent: #121212;
+      --line: #111111;
+      --soft-line: #d2cbc0;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+    }
+    .sidebar-shell {
+      background: #161616;
+      color: #f2eee8;
+      border-right: 1px solid #2d2d2d;
+      padding: 20px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 8px 18px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #2b2b2b;
+    }
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+    }
+    .brand small { display: block; color: #a89f92; letter-spacing: .08em; text-transform: uppercase; }
+    .brand strong { font-size: 1.2rem; }
+    .nav-section { margin: 18px 0; }
+    .nav-section-title {
+      color: #8e8579;
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+    .nav-link {
+      display: block;
+      padding: 12px 12px;
+      margin: 4px 0;
+      border-radius: 14px;
+      color: #f3efe8;
+      border: 1px solid transparent;
+      background: transparent;
+    }
+    .nav-link:hover {
+      text-decoration: none;
+      background: #202020;
+      border-color: #343434;
+    }
+    .nav-link.active {
+      background: linear-gradient(180deg, #232323, #1a1a1a);
+      border-color: #555;
+      box-shadow: inset 3px 0 0 #fff;
+    }
+    .main {
+      min-width: 0;
+      padding: 24px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--soft-line);
+    }
+    .crumbs {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .search {
+      min-width: 260px;
+      background: var(--panel);
+      border: 1px solid var(--soft-line);
+      border-radius: 999px;
+      padding: 12px 16px;
+      color: var(--muted);
+      text-align: left;
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid var(--line);
+      border-radius: 24px;
+      margin-bottom: 22px;
+      min-height: 300px;
+      background: #dfd9cf;
+      box-shadow: 0 16px 36px var(--shadow);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(90deg, rgba(247,244,239,.95), rgba(247,244,239,.68) 50%, rgba(247,244,239,.18) 100%), var(--hero-image);
+      background-size: cover;
+      background-position: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 32px;
+      right: 32px;
+      top: 22px;
+      border-top: 2px solid var(--line);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 38px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 300px;
+    }
+    .eyebrow {
+      display: inline-block;
+      align-self: flex-start;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.68);
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .hero h1 { margin: 0 0 10px; font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1.02; max-width: 760px; }
+    .hero p { margin: 0; color: #2e2a25; max-width: 760px; }
+    .content-shell {
+      background: var(--panel);
+      border: 1px solid var(--soft-line);
+      border-radius: 22px;
+      box-shadow: 0 14px 30px var(--shadow);
+      overflow: hidden;
+    }
+    .content-topline {
+      height: 6px;
+      background: linear-gradient(90deg, #111 0 18%, transparent 18% 24%, #111 24% 34%, transparent 34% 38%, #111 38% 100%);
+    }
+    .content {
+      padding: 28px;
+    }
+    .article-cover {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1.5px solid var(--line);
+      margin-bottom: 24px;
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+    .content h1, .content h2, .content h3 { line-height: 1.2; }
+    .content h1 { font-size: 2.15rem; margin-top: 0; }
+    .content h2 { margin-top: 2rem; font-size: 1.45rem; padding-top: .35rem; border-top: 1px solid var(--soft-line); }
+    .content h3 { margin-top: 1.2rem; font-size: 1.08rem; }
+    .content p { color: var(--text); }
+    .content ul { padding-left: 1.25rem; }
+    .content li { margin: .35rem 0; }
+    .content hr { border: none; border-top: 1px solid var(--soft-line); margin: 2rem 0; }
+    .content code { background: var(--panel-2); padding: 2px 6px; border-radius: 6px; }
+    .footer { margin-top: 24px; color: var(--muted); font-size: .95rem; }
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--soft-line);
+      border-radius: 20px;
+      box-shadow: 0 12px 28px var(--shadow);
+      overflow: hidden;
+    }
+    .card-topline {
+      height: 5px;
+      background: linear-gradient(90deg, #111 0 30%, transparent 30% 36%, #111 36% 52%, transparent 52% 56%, #111 56% 100%);
+    }
+    .card-body { padding: 18px; }
+    .card h3 { margin-top: 0; }
+    .card ul { margin-bottom: 0; }
+    .mini-cover {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--soft-line);
+    }
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar-shell { position: static; height: auto; }
+      .home-grid { grid-template-columns: 1fr; }
+      .main { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  
+    <div class="app">
+      <aside class="sidebar-shell"><div class="brand"><div class="brand-mark"></div><div><small>Start Young</small><strong>Student Business Site</strong></div></div><div class="nav-section"><div class="nav-section-title">Preview</div><a class="nav-link active" href="index.html">Home</a></div><div class="nav-section"><div class="nav-section-title">Start Here</div><a class="nav-link " href="start-here/how-to-start-an-online-business-as-a-student-or-young-beginner.html">How to Start an Online Business as a Student or Young Beginner</a><a class="nav-link " href="start-here/best-realistic-online-businesses-for-students.html">Best Realistic Online Businesses for Students</a><a class="nav-link " href="start-here/how-to-choose-the-right-online-business-for-you.html">How to Choose the Right Online Business for You</a><a class="nav-link " href="start-here/what-to-avoid-overhyped-business-advice-for-beginners.html">What to Avoid: Overhyped Business Advice for Beginners</a><a class="nav-link " href="start-here/your-first-30-days-a-simple-beginner-roadmap.html">Your First 30 Days: A Simple Beginner Roadmap</a></div><div class="nav-section"><div class="nav-section-title">Freelancing & Services</div><a class="nav-link " href="freelancing-services/best-freelance-services-students-can-start-with-no-experience.html">Best Freelance Services Students Can Start With No Experience</a><a class="nav-link " href="freelancing-services/how-to-get-your-first-freelance-client-as-a-beginner.html">How to Get Your First Freelance Client as a Beginner</a></div></aside>
+      <main class="main">
+        <div class="topbar">
+          <div class="crumbs">Start Young &nbsp;›&nbsp; Home</div>
+          <div class="search">Start Young</div>
+        </div>
+        <div class="hero" style="--hero-image: url("https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1600&q=80");">
+          <div class="hero-inner">
+            
+            <h1>How to start a business if you are young</h1>
+            <p>If you are reading this, it probably means you want something different. You do not just want to consume ideas — you want to build something real. This site is here to help young people start realistic online businesses with clear advice, smart first steps, and no fake guru nonsense.</p>
+          </div>
+        </div>
+        <div class="home-grid">
+          <section class="card"><div class="card-topline"></div><img class="mini-cover" src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=1600&q=80" alt="Start Here cover"><div class="card-body"><h3>Start Here</h3><ul><li><a href="start-here/how-to-start-an-online-business-as-a-student-or-young-beginner.html">How to Start an Online Business as a Student or Young Beginner</a></li><li><a href="start-here/best-realistic-online-businesses-for-students.html">Best Realistic Online Businesses for Students</a></li><li><a href="start-here/how-to-choose-the-right-online-business-for-you.html">How to Choose the Right Online Business for You</a></li><li><a href="start-here/what-to-avoid-overhyped-business-advice-for-beginners.html">What to Avoid: Overhyped Business Advice for Beginners</a></li><li><a href="start-here/your-first-30-days-a-simple-beginner-roadmap.html">Your First 30 Days: A Simple Beginner Roadmap</a></li></ul></div></section><section class="card"><div class="card-topline"></div><img class="mini-cover" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1600&q=80" alt="Freelancing & Services cover"><div class="card-body"><h3>Freelancing & Services</h3><ul><li><a href="freelancing-services/best-freelance-services-students-can-start-with-no-experience.html">Best Freelance Services Students Can Start With No Experience</a></li><li><a href="freelancing-services/how-to-get-your-first-freelance-client-as-a-beginner.html">How to Get Your First Freelance Client as a Beginner</a></li></ul></div></section>
+        </div>
+      </main>
+    </div>
+  
+</body>
+</html>
